@@ -18,6 +18,14 @@ public class UserMealWithExcess {
         this.excess = excess;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public Boolean isExcess() {
+        return excess;
+    }
+
     @Override
     public String toString() {
         return "UserMealWithExcess{" +
