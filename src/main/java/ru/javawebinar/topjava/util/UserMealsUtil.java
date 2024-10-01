@@ -3,6 +3,7 @@ package ru.javawebinar.topjava.util;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.model.UserMealWithExcess;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
@@ -30,7 +31,7 @@ public class UserMealsUtil {
     }
 
     public static List<UserMealWithExcess> filteredByCycles(List<UserMeal> meals, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
-        Map<String, Integer> totalCaloriesPerDay = new HashMap<>();
+        Map<LocalDate, Integer> totalCaloriesPerDay = new HashMap<>();
 
         // Accumulate total daily calories
         for (UserMeal meal : meals) {
@@ -52,12 +53,10 @@ public class UserMealsUtil {
     }
 
     public static List<UserMealWithExcess> filteredByStreams(List<UserMeal> meals, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
-        HashMap<String, Integer> totalCaloriesPerDay = meals.stream().collect(
-                () -> new HashMap<String, Integer>(),
-                (result, meal) -> result.merge(dayIndex(meal), meal.getCalories(), Integer::sum),
-                (result1, result2) -> result2.forEach((key, value) -> result1.merge(key, value, Integer::sum))
+        Map<LocalDate, Integer> totalCaloriesPerDay = meals.stream().collect(
+                Collectors.toMap(UserMealsUtil::dayIndex, UserMeal::getCalories, Integer::sum)
         );
-e
+
         return meals.stream()
                 .filter(meal -> isBetweenHalfOpen(meal.getDateTime().toLocalTime(), startTime, endTime))
                 .map(meal -> toUserMealWithExcess(meal, totalCaloriesPerDay.get(dayIndex(meal)) > caloriesPerDay))
@@ -68,7 +67,7 @@ e
         return new UserMealWithExcess(meal.getDateTime(), meal.getDescription(), meal.getCalories(), excess);
     }
 
-    private static String dayIndex(UserMeal meal) {
-        return meal.getDateTime().getYear() + "-" + meal.getDateTime().getDayOfYear();
+    private static LocalDate dayIndex(UserMeal meal) {
+        return meal.getDateTime().toLocalDate();
     }
 }
