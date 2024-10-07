@@ -18,7 +18,7 @@ public class InMemoryMealRepository implements MealRepository {
     public InMemoryMealRepository() {
         this.meals = new ConcurrentHashMap<>();
 
-        Stream.of(
+        Arrays.asList(
                 new Meal(LocalDateTime.parse("2020-01-29T12:00"), "Lunch", 2001),
                 new Meal(LocalDateTime.parse("2020-01-30T10:00"), "Breakfast", 400),
                 new Meal(LocalDateTime.parse("2020-01-30T13:00"), "Lunch", 1000),
