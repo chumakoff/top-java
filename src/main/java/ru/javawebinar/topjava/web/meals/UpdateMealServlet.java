@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-@WebServlet(name = "UpdateMealsServlet", urlPatterns = "/meals/update")
 public class UpdateMealServlet extends BaseMealServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

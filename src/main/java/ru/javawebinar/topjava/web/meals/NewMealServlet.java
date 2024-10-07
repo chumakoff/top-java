@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-@WebServlet(name = "NewMealsServlet", urlPatterns = "/meals/new")
 public class NewMealServlet extends BaseMealServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

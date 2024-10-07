@@ -20,6 +20,14 @@ public class Meal {
         this.calories = calories;
     }
 
+    public Meal(LocalDateTime dateTime, String description, int calories) {
+        this(null, dateTime, description, calories);
+    }
+
+    public Meal(Meal meal) {
+        this(meal.getId(), meal.getDateTime(), meal.getDescription(), meal.getCalories());
+    }
+
     public Integer getId() {
         return id;
     }
@@ -58,9 +66,5 @@ public class Meal {
 
     public void setCalories(int calories) {
         this.calories = calories;
-    }
-
-    public Meal copy() {
-        return new Meal(this.id, this.dateTime, this.description, this.calories);
     }
 }

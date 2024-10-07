@@ -6,13 +6,72 @@
 
     <display-name>TopJava</display-name>
 
+    <listener>
+        <listener-class>ru.javawebinar.topjava.listeners.AppContextListener</listener-class>
+    </listener>
+
     <servlet>
         <servlet-name>userServlet</servlet-name>
         <servlet-class>ru.javawebinar.topjava.web.UserServlet</servlet-class>
         <load-on-startup>0</load-on-startup>
     </servlet>
+    <servlet>
+        <servlet-name>createMealServlet</servlet-name>
+        <servlet-class>ru.javawebinar.topjava.web.meals.CreateMealServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteMealServlet</servlet-name>
+        <servlet-class>ru.javawebinar.topjava.web.meals.DeleteMealServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>editMealServlet</servlet-name>
+        <servlet-class>ru.javawebinar.topjava.web.meals.EditMealServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>listMealsServlet</servlet-name>
+        <servlet-class>ru.javawebinar.topjava.web.meals.ListMealsServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>newMealServlet</servlet-name>
+        <servlet-class>ru.javawebinar.topjava.web.meals.NewMealServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>updateMealServlet</servlet-name>
+        <servlet-class>ru.javawebinar.topjava.web.meals.UpdateMealServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>userServlet</servlet-name>
         <url-pattern>/users</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>createMealServlet</servlet-name>
+        <url-pattern>/meals/create</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteMealServlet</servlet-name>
+        <url-pattern>/meals/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>editMealServlet</servlet-name>
+        <url-pattern>/meals/edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>listMealsServlet</servlet-name>
+        <url-pattern>/meals</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>newMealServlet</servlet-name>
+        <url-pattern>/meals/new</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateMealServlet</servlet-name>
+        <url-pattern>/meals/update</url-pattern>
     </servlet-mapping>
 </web-app>

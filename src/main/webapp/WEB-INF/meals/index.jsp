@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="ru.javawebinar.topjava.util.Utils" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
@@ -57,11 +57,11 @@
     <tbody>
         <c:forEach items="${meals}" var="meal">
             <tr class="${meal.excess ? 'excess' : ''}">
-                <td>${meal.dateTime.format(DateTimeFormatter.ofPattern('yyyy-MMM-dd HH:mm'))}</td>
+                <td>${Utils.formatDateTime(meal.dateTime, 'full')}</td>
                 <td>${meal.description}</td>
                 <td>${meal.calories}</td>
                 <td>
-                    <a href="meals/edit?id=${meal.id}">Edit2</a><br>
+                    <a href="meals/edit?id=${meal.id}">Edit</a><br>
 
                     <form action="meals/delete" method="post">
                         <input type="hidden" name="id" value="${meal.id}"/>

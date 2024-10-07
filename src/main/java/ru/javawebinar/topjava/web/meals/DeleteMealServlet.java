@@ -9,16 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
-@WebServlet(name = "DeleteMealsServlet", urlPatterns = "/meals/delete")
 public class DeleteMealServlet extends BaseMealServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Optional<Meal> mealOpt = findMeal(request);
-        if (!mealOpt.isPresent()) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND);
-            return;
-        }
-        getMealRepository().delete(mealOpt.get());
+        getMealRepository().delete(getMealIdFromParams(request));
         response.sendRedirect(request.getContextPath() + "/meals");
     }
 }
