@@ -4,9 +4,8 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 
-import static ru.javawebinar.topjava.util.MealsUtil.DEFAULT_CALORIES_PER_DAY;
-
 public class User extends AbstractNamedEntity {
+    public static final int DEFAULT_CALORIES_PER_DAY = 2000;
 
     private String email;
 
@@ -14,7 +13,7 @@ public class User extends AbstractNamedEntity {
 
     private boolean enabled;
 
-    private Date registered = new Date();
+    private Date registeredAt = new Date();
 
     private Set<Role> roles;
 
@@ -45,12 +44,12 @@ public class User extends AbstractNamedEntity {
         this.password = password;
     }
 
-    public Date getRegistered() {
-        return registered;
+    public Date getRegisteredAt() {
+        return registeredAt;
     }
 
-    public void setRegistered(Date registered) {
-        this.registered = registered;
+    public void setRegisteredAt(Date registeredAt) {
+        this.registeredAt = registeredAt;
     }
 
     public void setEnabled(boolean enabled) {
