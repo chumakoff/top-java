@@ -1,45 +1,30 @@
 package ru.javawebinar.topjava.repository.inmemory;
 
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Repository
-public class InMemoryUserRepository implements UserRepository {
-    private static final Logger log = LoggerFactory.getLogger(InMemoryUserRepository.class);
-
-    @Override
-    public boolean delete(int id) {
-        log.info("delete {}", id);
-        return true;
-    }
-
-    @Override
-    public User save(User user) {
-        log.info("save {}", user);
-        return user;
-    }
-
-    @Override
-    public User get(int id) {
-        log.info("get {}", id);
-        return null;
-    }
-
-    @Override
-    public List<User> getAll() {
-        log.info("getAll");
-        return Collections.emptyList();
+public class InMemoryUserRepository extends BaseInMemoryRepository<User> implements UserRepository {
+    {
+        Arrays.asList(
+                new User("Regular User", "user@user.user", Role.USER),
+                new User("Admin User", "admin@admin.admin", Role.ADMIN)
+        ).forEach(this::save);
     }
 
     @Override
     public User getByEmail(String email) {
         log.info("getByEmail {}", email);
-        return null;
+        return dataSource.values().stream().filter(r -> r.getEmail().equals(email)).findFirst().orElse(null);
+    }
+
+    @Override
+    protected Comparator<User> defaultSortBy() {
+        return Comparator.comparing(User::getId);
     }
 }
