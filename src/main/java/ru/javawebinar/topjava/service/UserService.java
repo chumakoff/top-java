@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
 
-import java.util.Comparator;
 import java.util.List;
 
 import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFound;
@@ -36,7 +35,13 @@ public class UserService {
     }
 
     public List<User> getAll() {
-        return repository.getAll(Comparator.comparing(User::getName));
+        return repository.getAll(
+                (a, b) -> {
+                    int res = b.getName().compareTo(a.getName());
+                    if (res == 0) res = b.getId().compareTo(a.getId());
+                    return res;
+                }
+        );
     }
 
     public void update(User user) {

@@ -10,6 +10,9 @@ import ru.javawebinar.topjava.to.MealTo;
 import ru.javawebinar.topjava.util.MealsUtil;
 import ru.javawebinar.topjava.web.SecurityUtil;
 
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Controller
@@ -19,9 +22,30 @@ public class MealRestController {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    public List<MealTo> getAll() {
+    public List<MealTo> getAll(HttpServletRequest request) {
         log.info("Get all meals");
-        return MealsUtil.getTos(mealService.getAll(), SecurityUtil.authUserCaloriesPerDay());
+
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+        String startTime = request.getParameter("startTime");
+        String endTime = request.getParameter("endTime");
+
+        if (startDate != null && endDate != null && startTime != null && endTime != null &&
+                !startDate.isEmpty() && !endDate.isEmpty() && !startTime.isEmpty() && !endTime.isEmpty()) {
+            return MealsUtil.getFilteredTos(
+                    mealService.getAll(),
+                    SecurityUtil.authUserCaloriesPerDay(),
+                    LocalDate.parse(startDate),
+                    LocalDate.parse(endDate),
+                    LocalTime.parse(startTime),
+                    LocalTime.parse(endTime)
+            );
+        } else {
+            return MealsUtil.getTos(
+                    mealService.getAll(),
+                    SecurityUtil.authUserCaloriesPerDay()
+            );
+        }
     }
 
     public Meal get(int id) {
