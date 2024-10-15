@@ -15,32 +15,33 @@ import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 public class MealServlet extends HttpServlet {
-    private static final ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml");
-    private static final MealRestController mealController = appCtx.getBean(MealRestController.class);
+    private final ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml");
+    private final MealRestController mealController = appCtx.getBean(MealRestController.class);
 
     @Override
     public void destroy() {
-        super.destroy();
         appCtx.close();
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
-        Meal meal = new Meal();
 
+        Integer id = null;
         String idString = request.getParameter("id");
         if (idString != null && !idString.isEmpty()) {
-            meal.setId(Integer.parseInt(idString));
+            id = Integer.parseInt(idString);
         }
+
+        Meal meal = new Meal();
         meal.setDateTime(LocalDateTime.parse(request.getParameter("dateTime")));
         meal.setDescription(request.getParameter("description"));
         meal.setCalories(Integer.parseInt(request.getParameter("calories")));
 
-        if (meal.isNew()) {
+        if (id == null) {
             mealController.create(meal);
         } else {
-            mealController.update(meal);
+            mealController.update(meal, id);
         }
         response.sendRedirect("meals");
     }

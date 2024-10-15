@@ -8,4 +8,6 @@ import java.util.function.Predicate;
 
 public interface MealRepository extends BaseCRUDRepository<Meal> {
     List<Meal> getAll(Predicate<Meal> filterBy, Comparator<Meal> sortBy);
+
+    Meal getByIdAndUserId(int id, int userId);
 }

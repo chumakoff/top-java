@@ -1,12 +1,13 @@
 package ru.javawebinar.topjava.repository.inmemory;
 
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 @Repository
 public class InMemoryUserRepository extends BaseInMemoryRepository<User> implements UserRepository {
@@ -17,14 +18,13 @@ public class InMemoryUserRepository extends BaseInMemoryRepository<User> impleme
         ).forEach(this::save);
     }
 
+    public List<User> getAll(Comparator<User> sortBy) {
+        return getAll(null, defaultSortBy());
+    }
+
     @Override
     public User getByEmail(String email) {
         log.info("getByEmail {}", email);
         return dataSource.values().stream().filter(r -> r.getEmail().equals(email)).findFirst().orElse(null);
-    }
-
-    @Override
-    protected Comparator<User> defaultSortBy() {
-        return Comparator.comparing(User::getId);
     }
 }

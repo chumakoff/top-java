@@ -50,10 +50,6 @@ public abstract class BaseInMemoryRepository<T extends AbstractBaseEntity> imple
         return getAll(null, defaultSortBy());
     }
 
-    public List<T> getAll(Comparator<T> sortBy) {
-        return getAll(null, defaultSortBy());
-    }
-
     public List<T> getAll(Predicate<T> filterBy) {
         return getAll(filterBy, defaultSortBy());
     }
