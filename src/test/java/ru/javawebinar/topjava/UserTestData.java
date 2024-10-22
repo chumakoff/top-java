@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static ru.javawebinar.topjava.model.AbstractBaseEntity.START_SEQ;
+import static ru.javawebinar.topjava.model.User.START_SEQ;
 
 public class UserTestData {
     public static final int USER_ID = START_SEQ;
@@ -28,7 +28,7 @@ public class UserTestData {
         User updated = new User(user);
         updated.setEmail("update@gmail.com");
         updated.setName("UpdatedName");
-        updated.setCaloriesPerDay(330);
+        updated.setCaloriesPerDay(updated.getCaloriesPerDay() + 1);
         updated.setPassword("newPass");
         updated.setEnabled(false);
         updated.setRoles(Collections.singletonList(Role.ADMIN));

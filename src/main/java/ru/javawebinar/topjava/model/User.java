@@ -7,6 +7,7 @@ import java.util.*;
 import static ru.javawebinar.topjava.util.MealsUtil.DEFAULT_CALORIES_PER_DAY;
 
 public class User extends AbstractNamedEntity {
+    public static final int START_SEQ = 100000;
 
     private String email;
 

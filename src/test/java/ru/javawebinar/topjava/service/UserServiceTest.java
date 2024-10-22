@@ -49,7 +49,7 @@ public class UserServiceTest {
     @Test
     public void duplicateMailCreate() {
         assertThrows(DataAccessException.class, () ->
-                service.create(new User(null, "Duplicate", "user@yandex.ru", "newPass", Role.USER)));
+                service.create(new User(null, "Duplicate", UserTestData.user.getEmail(), "newPass", Role.USER)));
     }
 
     @Test
@@ -84,7 +84,7 @@ public class UserServiceTest {
     public void update() {
         User updated = getUpdated();
         service.update(updated);
-        assertMatch(service.get(USER_ID), getUpdated());
+        assertMatch(service.get(updated.getId()), getUpdated());
     }
 
     @Test
